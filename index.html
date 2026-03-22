@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRISM — 5-Day Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #0f0f1a;
+      --border: #1a1a2e;
+      --text: #ffffff;
+      --subtext: #666688;
+      --p: #9333ea;
+      --r: #3b82f6;
+      --i: #22c55e;
+      --s: #eab308;
+      --m: #f97316;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Rays background ── */
+    .rays {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ray {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200vw;
+      height: 2px;
+      transform-origin: left center;
+      opacity: 0;
+      animation: rayFade 8s ease-in-out infinite;
+    }
+
+    .ray:nth-child(1) { background: linear-gradient(90deg, transparent, var(--p), transparent); transform: rotate(0deg); animation-delay: 0s; }
+    .ray:nth-child(2) { background: linear-gradient(90deg, transparent, var(--r), transparent); transform: rotate(36deg); animation-delay: 0.8s; }
+    .ray:nth-child(3) { background: linear-gradient(90deg, transparent, var(--i), transparent); transform: rotate(72deg); animation-delay: 1.6s; }
+    .ray:nth-child(4) { background: linear-gradient(90deg, transparent, var(--s), transparent); transform: rotate(108deg); animation-delay: 2.4s; }
+    .ray:nth-child(5) { background: linear-gradient(90deg, transparent, var(--m), transparent); transform: rotate(144deg); animation-delay: 3.2s; }
+    .ray:nth-child(6) { background: linear-gradient(90deg, transparent, rgba(147,51,234,0.4), transparent); transform: rotate(18deg); animation-delay: 4s; height: 1px; }
+    .ray:nth-child(7) { background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent); transform: rotate(54deg); animation-delay: 4.8s; height: 1px; }
+    .ray:nth-child(8) { background: linear-gradient(90deg, transparent, rgba(34,197,94,0.4), transparent); transform: rotate(90deg); animation-delay: 5.6s; height: 1px; }
+    .ray:nth-child(9) { background: linear-gradient(90deg, transparent, rgba(234,179,8,0.4), transparent); transform: rotate(126deg); animation-delay: 6.4s; height: 1px; }
+    .ray:nth-child(10) { background: linear-gradient(90deg, transparent, rgba(249,115,22,0.4), transparent); transform: rotate(162deg); animation-delay: 7.2s; height: 1px; }
+
+    @keyframes rayFade {
+      0%, 100% { opacity: 0; }
+      20%, 60% { opacity: 0.15; }
+    }
+
+    /* ── Layout ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Hero image ── */
+    .hero-image-wrap {
+      width: 100%;
+      height: 320px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.7);
+    }
+
+    /* ── Prism divider ── */
+    .prism-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 8px auto 0;
+      max-width: 320px;
+    }
+
+    .prism-divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    }
+
+    .prism-divider-gem {
+      font-size: 18px;
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 48px 0 0;
+      animation: fadeUp 1s ease both;
+    }
+
+    .prism-letters {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 2px;
+      margin-bottom: 0;
+    }
+
+    .prism-letter {
+      font-family: 'Cormorant', Georgia, serif;
+      font-weight: 700;
+      font-size: 160px;
+      line-height: 0.85;
+      letter-spacing: 8px;
+    }
+
+    .prism-letter.p { color: var(--p); }
+    .prism-letter.r { color: var(--r); }
+    .prism-letter.i { color: var(--i); }
+    .prism-letter.s { color: var(--s); }
+    .prism-letter.m { color: var(--m); }
+
+    .tagline-main {
+      font-size: 48px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.2;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    .tagline-sub {
+      font-size: 28px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 0;
+    }
+
+    .rainbow-text {
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Challenge label ── */
+    .challenge-label {
+      text-align: center;
+      margin-top: 48px;
+      margin-bottom: 48px;
+      animation: fadeUp 1s ease 0.2s both;
+    }
+
+    .challenge-badge {
+      display: inline-block;
+      border: none;
+      border-radius: 100px;
+      padding: 14px 36px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text);
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+    }
+
+    /* ── Steps ── */
+    .steps {
+      margin-bottom: 56px;
+      animation: fadeUp 1s ease 0.3s both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .steps-inner {
+      display: inline-block;
+      padding: 4px 40px;
+      background: var(--card);
+      border-radius: 16px;
+      position: relative;
+    }
+
+    .steps-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .steps-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .step-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: none;
+      position: relative;
+    }
+
+    .step-row::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      opacity: 0.6;
+    }
+
+    .step-row:last-child::after {
+      display: none;
+    }
+
+    .step-row:first-of-type { }
+
+    .step-letter {
+      font-family: 'Cormorant', Georgia, serif;
+      font-weight: 700;
+      font-size: 56px;
+      line-height: 1;
+      width: 56px;
+      flex-shrink: 0;
+    }
+
+    .step-content { flex: 1; }
+
+    .step-name {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    .step-desc {
+      font-size: 24px;
+      font-style: normal;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 48px 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--p), var(--m));
+    }
+
+    /* ── About ── */
+    .about {
+      text-align: center;
+      margin-bottom: 56px;
+      animation: fadeUp 1s ease 0.4s both;
+    }
+
+    .about-quote {
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .insight-timer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 20px;
+    }
+
+    .it-stats {
+      text-align: left;
+    }
+
+    .it-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .it-detail {
+      font-size: 16px;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    .it-dot { color: var(--subtext); }
+
+    /* ── What you get ── */
+    .what-you-get {
+      margin-bottom: 56px;
+      animation: fadeUp 1s ease 0.45s both;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .feature-icon {
+      display: none;
+    }
+
+    .feature-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .feature-desc {
+      font-size: 20px;
+      font-style: normal;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center;
+      margin-bottom: 80px;
+      animation: fadeUp 1s ease 0.5s both;
+    }
+
+    .cta-headline {
+      font-size: 32px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .cta-sub {
+      font-size: 26px;
+      color: var(--text);
+      margin-bottom: 32px;
+      font-style: italic;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 420px;
+      margin: 0 auto 16px;
+    }
+
+    .form input {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form input::placeholder { color: var(--subtext); }
+    .form input:focus { border-color: var(--p); }
+
+    .cta-btn {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      color: white;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .cta-btn:active { transform: translateY(0); }
+
+    .cta-btn.submitted {
+      background: linear-gradient(90deg, var(--i), var(--s));
+    }
+
+    .coming-soon {
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 32px 0 48px;
+      border-top: 1px solid var(--border);
+      font-size: 18px;
+      color: var(--text);
+      line-height: 2;
+    }
+
+    .footer a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .footer a:hover { color: var(--text); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Success state ── */
+    .success-title {
+      font-size: 28px;
+      font-style: italic;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 24px;
+      background: var(--card);
+      border-radius: 14px;
+      max-width: 420px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .success-message::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .success-message.visible { display: block; }
+
+    .success-sub {
+      font-size: 24px;
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .hero-image-wrap { height: 240px; }
+      .prism-letter { font-size: 80px; }
+      .tagline-main { font-size: 32px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .cta-headline { font-size: 26px; }
+      .steps-inner { padding: 4px 16px; width: 100%; }
+      .step-desc { font-size: 20px; }
+      .step-name { font-size: 24px; }
+      .step-letter { font-size: 48px; width: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rays">
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+  </div>
+
+  <!-- Hero Image -->
+  <div class="hero-image-wrap">
+    <img src="prism-light.jpg" alt="PRISM" />
+  </div>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="prism-letters">
+        <span class="prism-letter p">P</span>
+        <span class="prism-letter r">R</span>
+        <span class="prism-letter i">I</span>
+        <span class="prism-letter s">S</span>
+        <span class="prism-letter m">M</span>
+      </div>
+      <p style="font-size: 32px; font-weight: 400; font-style: italic; margin: -8px 0 4px;"><span class="rainbow-text">iOS App</span></p>
+      <div class="prism-divider">
+        <div class="prism-divider-line"></div>
+        <span class="prism-divider-gem">✦</span>
+        <div class="prism-divider-line"></div>
+      </div>
+      <p class="tagline-main"><span class="rainbow-text">Put Your Meditation in Motion</span></p>
+      <div class="prism-divider">
+        <div class="prism-divider-line"></div>
+        <span class="prism-divider-gem">✦</span>
+        <div class="prism-divider-line"></div>
+      </div>
+      <p class="tagline-sub" style="padding-top: 12px;">The PRISM App takes your meditation practice off of your cushion and into your life.</p>
+    </div>
+
+    <!-- Challenge Badge -->
+    <div class="challenge-label">
+      <span class="challenge-badge">The 5-Day Challenge</span>
+      <p style="font-size: 32px; font-style: italic; color: var(--text); margin-top: 40px; line-height: 1.6;">Five days. Five questions.<br><span class="rainbow-text">One practice that follows you into your life.</span></p>
+      <p style="font-size: 24px; letter-spacing: 2px; text-transform: uppercase; color: var(--text); margin-top: 12px;">Coming Soon · iOS</p>
+
+      <p class="cta-sub" style="margin-top: 24px;">Get early access — be first to know when PRISM launches.</p>
+
+      <form class="form" name="waitlist" method="POST" data-netlify="true" id="waitlistForm">
+        <input type="hidden" name="form-name" value="waitlist" />
+        <input type="text" name="name" id="nameInput" placeholder="Your first name" autocomplete="given-name" required />
+        <input type="email" name="email" id="emailInput" placeholder="Your email address" autocomplete="email" required />
+        <button type="submit" class="cta-btn">Get Early Access</button>
+      </form>
+
+      <div class="success-message" id="successMessage">
+        <div class="success-title">✦ You're on the list ✦</div>
+        <div class="success-sub"><span class="rainbow-text">We'll be in touch when PRISM is ready.</span><br>Every step is both the practice and the progress.</div>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div class="steps">
+      <p class="steps-title"><span class="rainbow-text">The PRISM Process</span></p>
+      <div class="steps-inner">
+      <div class="step-row">
+        <span class="step-letter" style="color: var(--p);">P</span>
+        <div class="step-content">
+          <div class="step-name" style="color: var(--p);">Prepare</div>
+          <div class="step-desc">Arrive in your body</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <span class="step-letter" style="color: var(--r);">R</span>
+        <div class="step-content">
+          <div class="step-name" style="color: var(--r);">Relax</div>
+          <div class="step-desc">Soften and release</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <span class="step-letter" style="color: var(--i);">I</span>
+        <div class="step-content">
+          <div class="step-name" style="color: var(--i);">Inquire</div>
+          <div class="step-desc">Ask your heart</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <span class="step-letter" style="color: var(--s);">S</span>
+        <div class="step-content">
+          <div class="step-name" style="color: var(--s);">Settle</div>
+          <div class="step-desc">Be still and surrender</div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <span class="step-letter" style="color: var(--m);">M</span>
+        <div class="step-content">
+          <div class="step-name" style="color: var(--m);">Move</div>
+          <div class="step-desc">Make a commitment</div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="prism-divider" style="margin: 24px auto;">
+      <div class="prism-divider-line"></div>
+      <span class="prism-divider-gem">✦</span>
+      <div class="prism-divider-line"></div>
+    </div>
+
+    <!-- What You Get -->
+    <div class="what-you-get">
+      <p class="section-title"><span class="rainbow-text">What Awaits You</span></p>
+      <div class="feature-grid">
+        <div class="feature-card" style="border-color: var(--p)">
+          <div class="feature-title" style="color: var(--p)"><span>🎧</span> Guided Meditations</div>
+          <div class="feature-desc">A short guided meditation opens each step of the practice.</div>
+        </div>
+        <div class="feature-card" style="border-color: var(--r)">
+          <div class="feature-title" style="color: var(--r)"><span>🔍</span> Insightful Questions</div>
+          <div class="feature-desc">Go on a journey of self-inquiry, self-reflection, and self-correction.</div>
+        </div>
+        <div class="feature-card" style="border-color: var(--i)">
+          <div class="feature-title" style="color: var(--i)"><span>⚡</span> Take Action</div>
+          <div class="feature-desc">Uncover the most powerful next step to have what you want in life.</div>
+        </div>
+        <div class="feature-card" style="border-color: var(--s)">
+          <div class="feature-title" style="color: var(--s)"><span>🎙️</span> Your Voice</div>
+          <div class="feature-desc">Speak your answers aloud. The practice listens to your words.</div>
+        </div>
+        <div class="feature-card" style="border-color: var(--m)">
+          <div class="feature-title" style="color: var(--m)"><span>✨</span> AI Insights</div>
+          <div class="feature-desc">Personalized reflections drawn from your own words.</div>
+        </div>
+        <div class="feature-card" style="border-image: linear-gradient(135deg, var(--p), var(--r), var(--i), var(--s), var(--m)) 1">
+          <div class="feature-title"><span>📖</span> <span class="rainbow-text">Your Journey</span></div>
+          <div class="feature-desc">At the end, a letter — written from your words, for your life.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>© 2026 PRISM · <a href="/privacy">Privacy Policy</a></div>
+    </div>
+
+  </div>
+
+  <script>
+    // Show success message after Netlify form submission
+    const form = document.getElementById('waitlistForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString(),
+      })
+      .then(() => {
+        form.style.display = 'none';
+        document.getElementById('successMessage').classList.add('visible');
+      })
+      .catch(() => {
+        // Fallback — still show success even if fetch fails
+        form.style.display = 'none';
+        document.getElementById('successMessage').classList.add('visible');
+      });
+    });
+  </script>
+
+</body>
+</html>
