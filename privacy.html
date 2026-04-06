@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — PRISM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #0f0f1a;
+      --border: #1a1a2e;
+      --text: #ffffff;
+      --subtext: #666688;
+      --p: #9333ea;
+      --r: #3b82f6;
+      --i: #22c55e;
+      --s: #eab308;
+      --m: #f97316;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Rays background ── */
+    .rays {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ray {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200vw;
+      height: 2px;
+      transform-origin: left center;
+      opacity: 0;
+      animation: rayFade 8s ease-in-out infinite;
+    }
+
+    .ray:nth-child(1) { background: linear-gradient(90deg, transparent, var(--p), transparent); transform: rotate(0deg); animation-delay: 0s; }
+    .ray:nth-child(2) { background: linear-gradient(90deg, transparent, var(--r), transparent); transform: rotate(36deg); animation-delay: 0.8s; }
+    .ray:nth-child(3) { background: linear-gradient(90deg, transparent, var(--i), transparent); transform: rotate(72deg); animation-delay: 1.6s; }
+    .ray:nth-child(4) { background: linear-gradient(90deg, transparent, var(--s), transparent); transform: rotate(108deg); animation-delay: 2.4s; }
+    .ray:nth-child(5) { background: linear-gradient(90deg, transparent, var(--m), transparent); transform: rotate(144deg); animation-delay: 3.2s; }
+    .ray:nth-child(6) { background: linear-gradient(90deg, transparent, rgba(147,51,234,0.4), transparent); transform: rotate(18deg); animation-delay: 4s; height: 1px; }
+    .ray:nth-child(7) { background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent); transform: rotate(54deg); animation-delay: 4.8s; height: 1px; }
+    .ray:nth-child(8) { background: linear-gradient(90deg, transparent, rgba(34,197,94,0.4), transparent); transform: rotate(90deg); animation-delay: 5.6s; height: 1px; }
+    .ray:nth-child(9) { background: linear-gradient(90deg, transparent, rgba(234,179,8,0.4), transparent); transform: rotate(126deg); animation-delay: 6.4s; height: 1px; }
+    .ray:nth-child(10) { background: linear-gradient(90deg, transparent, rgba(249,115,22,0.4), transparent); transform: rotate(162deg); animation-delay: 7.2s; height: 1px; }
+
+    @keyframes rayFade {
+      0%, 100% { opacity: 0; }
+      20%, 60% { opacity: 0.15; }
+    }
+
+    /* ── Layout ── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 64px 0 48px;
+      animation: fadeUp 1s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .prism-letters {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 2px;
+      margin-bottom: 8px;
+    }
+
+    .prism-letter {
+      font-family: 'Cormorant', Georgia, serif;
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 0.85;
+      letter-spacing: 4px;
+    }
+
+    .prism-letter.p { color: var(--p); }
+    .prism-letter.r { color: var(--r); }
+    .prism-letter.i { color: var(--i); }
+    .prism-letter.s { color: var(--s); }
+    .prism-letter.m { color: var(--m); }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text);
+      margin-top: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    .last-updated {
+      font-size: 20px;
+      color: var(--text);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* ── Divider ── */
+    .prism-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 32px auto;
+      max-width: 320px;
+    }
+
+    .prism-divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    }
+
+    .prism-divider-gem {
+      font-size: 18px;
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .rainbow-text {
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Content ── */
+    .policy-section {
+      margin-bottom: 40px;
+      animation: fadeUp 1s ease 0.2s both;
+    }
+
+    .section-number {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      font-style: italic;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .section-body {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .section-body ul {
+      list-style: none;
+      margin: 12px 0;
+      padding: 0;
+    }
+
+    .section-body ul li {
+      padding: 6px 0 6px 24px;
+      position: relative;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .section-body ul li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      font-size: 10px;
+      background: linear-gradient(90deg, var(--p), var(--r));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      top: 10px;
+    }
+
+    .section-body a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.2s;
+    }
+
+    .section-body a:hover {
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    /* ── Card wrapper ── */
+    .policy-card {
+      position: relative;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+      margin-bottom: 16px;
+    }
+
+    .policy-card-inner {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 28px 32px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 48px 0 0;
+      font-size: 20px;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    .footer a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .footer a:hover {
+      opacity: 0.7;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 48px;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover { opacity: 0.7; }
+
+    @media (max-width: 480px) {
+      .prism-letter { font-size: 48px; }
+      .page-title { font-size: 24px; }
+      .policy-card-inner { padding: 20px; }
+      .section-body { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rays">
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+  </div>
+
+  <div class="container">
+
+    <div class="header">
+      <div class="prism-letters">
+        <span class="prism-letter p">P</span>
+        <span class="prism-letter r">R</span>
+        <span class="prism-letter i">I</span>
+        <span class="prism-letter s">S</span>
+        <span class="prism-letter m">M</span>
+      </div>
+      <p class="page-title">Privacy Policy</p>
+      <p class="last-updated">Last updated: March 2026</p>
+    </div>
+
+    <a href="/" class="back-link">← Back to PRISM</a>
+
+    <div class="prism-divider">
+      <div class="prism-divider-line"></div>
+      <span class="prism-divider-gem">✦</span>
+      <div class="prism-divider-line"></div>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">01</div>
+        <div class="section-title">Who We Are</div>
+        <div class="section-body">
+          PRISM is a meditation and journaling app created by Eddie Mac (<a href="/cdn-cgi/l/email-protection#a9d9dbc0dac4c4cccdc0ddc8ddc0c6c7e9cec4c8c0c587cac6c4"><span class="__cf_email__" data-cfemail="4d3d3f243e2020282924392c392422230d2a202c2421632e2220">[email&#160;protected]</span></a>). References to "we," "us," or "our" refer to the PRISM app and its operator.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">02</div>
+        <div class="section-title">What Data We Collect</div>
+        <div class="section-body">
+          We collect only what is necessary to provide the app experience:
+          <ul>
+            <li>Your first name — entered during onboarding</li>
+            <li>Voice recordings — recorded during your daily practice sessions and intention setting</li>
+            <li>Transcripts — text generated from your voice recordings</li>
+            <li>App usage data — which days you have completed, your settings preferences, and your commitment tracking</li>
+          </ul>
+          We do not collect your email address, location, payment information, or any data that identifies you beyond your first name.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">03</div>
+        <div class="section-title">How We Use Your Data</div>
+        <div class="section-body">
+          Your data is used solely to provide and improve your personal PRISM experience:
+          <ul>
+            <li>To generate personalized AI insights from your session transcripts</li>
+            <li>To track your progress through the 5-day challenge</li>
+            <li>To display your journey summary and commitment history</li>
+            <li>To pre-fill your name on future uses of the app</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">04</div>
+        <div class="section-title">Voice Recordings and AI Processing</div>
+        <div class="section-body">
+          Your voice recordings are transcribed locally on your device where possible. Transcripts are sent to Anthropic's Claude API to generate your personal insights. This is the only time your data leaves your device.
+          <br><br>
+          Anthropic processes this data solely to generate your response. API inputs and outputs are automatically deleted from Anthropic's servers after 7 days and are never used for model training. You can review Anthropic's privacy policy at <a href="https://anthropic.com/privacy" target="_blank">anthropic.com/privacy</a>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">05</div>
+        <div class="section-title">Data Storage</div>
+        <div class="section-body">
+          All your recordings, transcripts, and progress data are stored locally on your device using your phone's secure storage. We do not operate servers or databases that store your personal data.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">06</div>
+        <div class="section-title">Third-Party Services</div>
+        <div class="section-body">
+          We use the following third-party services:
+          <ul>
+            <li>Anthropic — AI insight generation. <a href="https://anthropic.com/privacy" target="_blank">Privacy policy</a></li>
+            <li>RevenueCat — subscription management (paid features only). <a href="https://revenuecat.com/privacy" target="_blank">Privacy policy</a></li>
+            <li>Apple — app delivery and device infrastructure. <a href="https://apple.com/privacy" target="_blank">Privacy policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">07</div>
+        <div class="section-title">Your Rights (UK and EU Users)</div>
+        <div class="section-body">
+          If you are located in the UK or European Union, you have the following rights under UK GDPR and EU GDPR:
+          <ul>
+            <li>Right of access — you may request a copy of the personal data we hold about you</li>
+            <li>Right to rectification — you may request correction of inaccurate data</li>
+            <li>Right to erasure — you may request deletion of your data</li>
+            <li>Right to withdraw consent — you may withdraw consent at any time by deleting the app, which removes all locally stored data from your device</li>
+            <li>Right to lodge a complaint — UK users may contact the Information Commissioner's Office (<a href="https://ico.org.uk" target="_blank">ico.org.uk</a>). EU users may contact their local data protection authority.</li>
+          </ul>
+          To exercise any of these rights, contact us at <a href="/cdn-cgi/l/email-protection#58282a312b35353d3c312c392c313736183f35393134763b3735"><span class="__cf_email__" data-cfemail="ff8f8d968c92929a9b968b9e8b969091bf98929e9693d19c9092">[email&#160;protected]</span></a>. We will respond within 30 days.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 8 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">08</div>
+        <div class="section-title">Children's Privacy</div>
+        <div class="section-body">
+          PRISM is not intended for users under the age of 13. We do not knowingly collect data from children under 13.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 9 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">09</div>
+        <div class="section-title">Data Retention</div>
+        <div class="section-body">
+          Your data is stored on your device for as long as you use the app. Deleting the app removes all locally stored data. Anthropic automatically deletes any transmitted transcript data within 7 days.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 10 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">10</div>
+        <div class="section-title">Changes to This Policy</div>
+        <div class="section-body">
+          We may update this policy from time to time. We will notify you of significant changes through the app. Continued use of the app after changes constitutes acceptance of the updated policy.
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 11 -->
+    <div class="policy-card">
+      <div class="policy-card-inner">
+        <div class="section-number">11</div>
+        <div class="section-title">Contact</div>
+        <div class="section-body">
+          For any privacy-related questions or to exercise your data rights, contact:<br><br>
+          Eddie Mac<br>
+          <a href="/cdn-cgi/l/email-protection#49393b203a24242c2d203d283d202627092e24282025672a2624"><span class="__cf_email__" data-cfemail="3d4d4f544e5050585954495c495452537d5a505c5451135e5250">[email&#160;protected]</span></a>
+        </div>
+      </div>
+    </div>
+
+    <
