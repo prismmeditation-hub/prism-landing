@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almost In — PRISM</title>
+
+    <!-- SEO: prevent indexing of this transitional page -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" type="image/png" href="/prism_icon_light_1024.png">
+    <link rel="apple-touch-icon" href="/prism_icon_light_1024.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --card: #0f0f1a;
+        --border: #1a1a2e;
+        --text: #ffffff;
+        --subtext: #666688;
+        --p: #9333ea;
+        --r: #3b82f6;
+        --i: #22c55e;
+        --s: #eab308;
+        --m: #f97316;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* ── Rays background (matches index.html) ── */
+      .rays {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .ray {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200vw;
+        height: 2px;
+        transform-origin: left center;
+        opacity: 0;
+        animation: rayFade 8s ease-in-out infinite;
+      }
+
+      .ray:nth-child(1) { background: linear-gradient(90deg, transparent, var(--p), transparent); transform: rotate(0deg); animation-delay: 0s; }
+      .ray:nth-child(2) { background: linear-gradient(90deg, transparent, var(--r), transparent); transform: rotate(36deg); animation-delay: 0.8s; }
+      .ray:nth-child(3) { background: linear-gradient(90deg, transparent, var(--i), transparent); transform: rotate(72deg); animation-delay: 1.6s; }
+      .ray:nth-child(4) { background: linear-gradient(90deg, transparent, var(--s), transparent); transform: rotate(108deg); animation-delay: 2.4s; }
+      .ray:nth-child(5) { background: linear-gradient(90deg, transparent, var(--m), transparent); transform: rotate(144deg); animation-delay: 3.2s; }
+      .ray:nth-child(6) { background: linear-gradient(90deg, transparent, rgba(147,51,234,0.4), transparent); transform: rotate(18deg); animation-delay: 4s; height: 1px; }
+      .ray:nth-child(7) { background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4), transparent); transform: rotate(54deg); animation-delay: 4.8s; height: 1px; }
+      .ray:nth-child(8) { background: linear-gradient(90deg, transparent, rgba(34,197,94,0.4), transparent); transform: rotate(90deg); animation-delay: 5.6s; height: 1px; }
+      .ray:nth-child(9) { background: linear-gradient(90deg, transparent, rgba(234,179,8,0.4), transparent); transform: rotate(126deg); animation-delay: 6.4s; height: 1px; }
+      .ray:nth-child(10) { background: linear-gradient(90deg, transparent, rgba(249,115,22,0.4), transparent); transform: rotate(162deg); animation-delay: 7.2s; height: 1px; }
+
+      @keyframes rayFade {
+        0%, 100% { opacity: 0; }
+        20%, 60% { opacity: 0.15; }
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Layout ── */
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* ── Hero image (matches index.html) ── */
+      .hero-image-wrap {
+        width: 100%;
+        height: 320px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero-image-wrap::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 160px;
+        background: linear-gradient(to bottom, transparent, var(--bg));
+      }
+
+      .hero-image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: brightness(0.7);
+      }
+
+      /* ── Header ── */
+      .header {
+        text-align: center;
+        padding: 8px 0 0;
+        animation: fadeUp 1s ease both;
+      }
+
+      .welcome-to {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+        color: var(--text);
+        margin-bottom: 8px;
+        opacity: 0.85;
+      }
+
+      .prism-letters {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 2px;
+        margin-bottom: 16px;
+      }
+
+      .prism-letter {
+        font-family: 'Cormorant', Georgia, serif;
+        font-weight: 700;
+        font-size: 88px;
+        line-height: 0.85;
+        letter-spacing: 6px;
+      }
+
+      .prism-letter.p { color: var(--p); }
+      .prism-letter.r { color: var(--r); }
+      .prism-letter.i { color: var(--i); }
+      .prism-letter.s { color: var(--s); }
+      .prism-letter.m { color: var(--m); }
+
+      .rainbow-text {
+        background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .almost-in {
+        font-size: 56px;
+        font-weight: 600;
+        font-style: italic;
+        line-height: 1.1;
+        margin: 24px 0 12px;
+        letter-spacing: 0.3px;
+      }
+
+      .lead {
+        font-size: 26px;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--text);
+        line-height: 1.5;
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      /* ── Prism divider (matches index.html) ── */
+      .prism-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 48px auto;
+        max-width: 320px;
+      }
+
+      .prism-divider-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      }
+
+      .prism-divider-gem {
+        font-size: 18px;
+        background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* ── Instructions box (matches steps-inner pattern) ── */
+      .instructions {
+        animation: fadeUp 1s ease 0.2s both;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .instructions-inner {
+        display: inline-block;
+        padding: 32px 40px;
+        background: var(--card);
+        border-radius: 16px;
+        position: relative;
+        max-width: 560px;
+      }
+
+      .instructions-inner::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+        padding: 2px;
+        background: linear-gradient(135deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      .instructions-title {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text);
+        margin-bottom: 20px;
+      }
+
+      .instruction-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 12px 0;
+        position: relative;
+      }
+
+      .instruction-row::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+        opacity: 0.4;
+      }
+
+      .instruction-row:last-child::after {
+        display: none;
+      }
+
+      .instruction-num {
+        font-family: 'Cormorant', Georgia, serif;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 1;
+        width: 36px;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      .instruction-num.n1 { color: var(--p); }
+      .instruction-num.n2 { color: var(--r); }
+      .instruction-num.n3 { color: var(--i); }
+
+      .instruction-text {
+        flex: 1;
+        font-size: 22px;
+        line-height: 1.5;
+        color: var(--text);
+      }
+
+      .instruction-text strong {
+        font-weight: 600;
+      }
+
+      .instruction-text em {
+        font-style: italic;
+        color: var(--text);
+      }
+
+      /* ── Section title ── */
+      .section-title {
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        color: var(--text);
+        text-align: center;
+        margin-bottom: 20px;
+        animation: fadeUp 1s ease 0.3s both;
+      }
+
+      .section-lead {
+        font-size: 20px;
+        font-style: italic;
+        color: var(--text);
+        text-align: center;
+        line-height: 1.5;
+        max-width: 540px;
+        margin: 0 auto 24px;
+        animation: fadeUp 1s ease 0.3s both;
+      }
+
+      /* ── Inbox buttons (sniper links) ── */
+      .inbox-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+        animation: fadeUp 1s ease 0.35s both;
+      }
+
+      .inbox-btn {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px 12px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--text);
+        display: block;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .inbox-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .inbox-btn.gmail   { border-color: var(--p); }
+      .inbox-btn.outlook { border-color: var(--r); }
+      .inbox-btn.yahoo   { border-color: var(--s); }
+
+      .inbox-btn-label {
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--subtext);
+        margin-bottom: 4px;
+      }
+
+      .inbox-btn-name {
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .inbox-btn.gmail   .inbox-btn-name { color: var(--p); }
+      .inbox-btn.outlook .inbox-btn-name { color: var(--r); }
+      .inbox-btn.yahoo   .inbox-btn-name { color: var(--s); }
+
+      .other-inbox {
+        text-align: center;
+        font-size: 18px;
+        font-style: italic;
+        color: var(--subtext);
+        margin-bottom: 56px;
+        animation: fadeUp 1s ease 0.4s both;
+      }
+
+      /* ── What's coming ── */
+      .whats-coming {
+        text-align: center;
+        margin-bottom: 56px;
+        animation: fadeUp 1s ease 0.45s both;
+      }
+
+      .coming-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .coming-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: left;
+      }
+
+      .coming-card.launch   { border-color: var(--i); }
+      .coming-card.session  { border-color: var(--m); }
+
+      .coming-date {
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .coming-card.launch  .coming-date { color: var(--i); }
+      .coming-card.session .coming-date { color: var(--m); }
+
+      .coming-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--text);
+      }
+
+      .coming-desc {
+        font-size: 18px;
+        color: var(--text);
+        line-height: 1.4;
+      }
+
+      /* ── Support card (matches index.html) ── */
+      .support-wrap {
+        padding: 8px 0 16px;
+        animation: fadeUp 1s ease 0.5s both;
+      }
+
+      .support-frame {
+        position: relative;
+        border-radius: 20px;
+        padding: 3px;
+        background: linear-gradient(135deg, var(--p), var(--r), var(--i), var(--s), var(--m));
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .support-inner {
+        background: var(--card);
+        border-radius: 17px;
+        padding: 32px 28px;
+        text-align: center;
+      }
+
+      .support-inner .line1 {
+        font-size: 24px;
+        font-style: italic;
+        color: var(--text);
+        margin-bottom: 8px;
+        letter-spacing: 0.3px;
+      }
+
+      .support-inner .line2 {
+        font-size: 24px;
+        font-style: italic;
+        letter-spacing: 0.3px;
+        margin-bottom: 14px;
+      }
+
+      .support-inner a {
+        font-size: 22px;
+        font-style: italic;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: 0.3px;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        text-align: center;
+        padding: 48px 0 32px;
+        font-size: 16px;
+        color: var(--subtext);
+      }
+
+      .footer a {
+        color: var(--subtext);
+        text-decoration: none;
+      }
+
+      /* ── Mobile ── */
+      @media (max-width: 520px) {
+        .hero-image-wrap { height: 240px; }
+        .welcome-to { font-size: 18px; letter-spacing: 6px; }
+        .prism-letter { font-size: 64px; letter-spacing: 4px; }
+        .almost-in { font-size: 40px; }
+        .lead { font-size: 22px; }
+        .instructions-inner { padding: 24px 20px; }
+        .instruction-text { font-size: 20px; }
+        .instruction-num { font-size: 30px; width: 30px; }
+        .inbox-buttons { grid-template-columns: 1fr; gap: 10px; }
+        .coming-grid { grid-template-columns: 1fr; }
+        .section-title { font-size: 26px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Animated rays -->
+    <div class="rays">
+      <div class="ray"></div><div class="ray"></div><div class="ray"></div><div class="ray"></div><div class="ray"></div>
+      <div class="ray"></div><div class="ray"></div><div class="ray"></div><div class="ray"></div><div class="ray"></div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="hero-image-wrap">
+      <img src="prism-light.jpg" alt="PRISM" />
+    </div>
+
+    <div class="container">
+
+      <!-- Header -->
+      <div class="header">
+        <p class="welcome-to">Welcome to</p>
+        <div class="prism-letters">
+          <span class="prism-letter p">P</span>
+          <span class="prism-letter r">R</span>
+          <span class="prism-letter i">I</span>
+          <span class="prism-letter s">S</span>
+          <span class="prism-letter m">M</span>
+        </div>
+
+        <h1 class="almost-in"><span class="rainbow-text">You're almost in!</span></h1>
+
+        <p class="lead">
+          We've sent a confirmation email to verify your subscription. One click and you're on the journey.
+        </p>
+      </div>
+
+      <div class="prism-divider">
+        <div class="prism-divider-line"></div>
+        <span class="prism-divider-gem">✦</span>
+        <div class="prism-divider-line"></div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="instructions">
+        <div class="instructions-inner">
+          <p class="instructions-title">What to do next</p>
+
+          <div class="instruction-row">
+            <span class="instruction-num n1">1</span>
+            <div class="instruction-text">
+              Open your inbox and look for an email from <strong>edward@yourprism.app</strong> with the subject <em>"Confirm your subscription"</em>.
+            </div>
+          </div>
+
+          <div class="instruction-row">
+            <span class="instruction-num n2">2</span>
+            <div class="instruction-text">
+              Click the <strong>confirmation button</strong> inside that email.
+            </div>
+          </div>
+
+          <div class="instruction-row">
+            <span class="instruction-num n3">3</span>
+            <div class="instruction-text">
+              Can't find it? Check your <strong>Promotions</strong>, <strong>Updates</strong>, or <strong>Spam</strong> folder.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prism-divider">
+        <div class="prism-divider-line"></div>
+        <span class="prism-divider-gem">✦</span>
+        <div class="prism-divider-line"></div>
+      </div>
+
+      <!-- Sniper links -->
+      <p class="section-title"><span class="rainbow-text">Jump to your inbox</span></p>
+      <p class="section-lead">One tap to open your email, pre-searched for the confirmation.</p>
+
+      <div class="inbox-buttons">
+        <a href="https://mail.google.com/mail/u/0/#search/from%3A(yourprism.app)+confirm" target="_blank" rel="noopener" class="inbox-btn gmail">
+          <div class="inbox-btn-label">Open</div>
+          <div class="inbox-btn-name">Gmail</div>
+        </a>
+        <a href="https://outlook.live.com/mail/0/inbox" target="_blank" rel="noopener" class="inbox-btn outlook">
+          <div class="inbox-btn-label">Open</div>
+          <div class="inbox-btn-name">Outlook</div>
+        </a>
+        <a href="https://mail.yahoo.com/d/search/keyword=yourprism.app" target="_blank" rel="noopener" class="inbox-btn yahoo">
+          <div class="inbox-btn-label">Open</div>
+          <div class="inbox-btn-name">Yahoo</div>
+        </a>
+      </div>
+
+      <p class="other-inbox">Using Apple Mail, iCloud, or something else? Just open your inbox app.</p>
+
+      <!-- What's coming -->
+      <div class="whats-coming">
+        <p class="section-title"><span class="rainbow-text">What awaits</span></p>
+
+        <div class="coming-grid">
+          <div class="coming-card launch">
+            <div class="coming-date">June 15</div>
+            <div class="coming-title">Launch Day</div>
+            <div class="coming-desc">PRISM goes live on the App Store. You'll be among the first to know — and start your free trial.</div>
+          </div>
+          <div class="coming-card session">
+            <div class="coming-date">June 28 · 11am Pacific</div>
+            <div class="coming-title">Live Session</div>
+            <div class="coming-desc">A live PRISM gathering on Zoom. Open to confirmed subscribers.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div class="support-wrap">
+        <div class="support-frame">
+          <div class="support-inner">
+            <p class="line1">Didn't get the email?</p>
+            <p class="line2"><span class="rainbow-text">We're here for you.</span></p>
+            <a href="mailto:prismmeditation@gmail.com">prismmeditation@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div>© 2026 PRISM · <a href="/privacy">Privacy Policy</a> · <a href="/">Home</a></div>
+      </div>
+
+    </div>
+
+  </body>
+</html>
